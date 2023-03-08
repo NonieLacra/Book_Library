@@ -23,14 +23,25 @@ public class Library {
 
     public void removeBook(int bookId)
     {
-        books.remove(bookId);
+        if(books.containsKey(bookId)) {
+            books.remove(bookId);
+            System.out.println("The book with the ID number " + bookId + " has been successfully removed.");
+        }
+        else {
+            System.out.println("The book with the ID number " + bookId + " is not available to remove.");
+        }
     }
 
     public void viewBook()
     {
-        for (Map.Entry<Integer, String> entry : books.entrySet())
+        if(books.isEmpty())
         {
-            System.out.println(entry.getKey() + " ----- " + entry.getValue());
+            System.out.println("No books available");
+        }
+        else {
+            for (Map.Entry<Integer, String> entry : books.entrySet()) {
+                System.out.println(entry.getKey() + " ----- " + entry.getValue());
+            }
         }
     }
 
@@ -70,7 +81,7 @@ public class Library {
                         System.out.println("Please enter the book ID number that you want to remove.");
                         int bookToRemove = input.nextInt();
                         library.removeBook(bookToRemove);
-                        System.out.println("The book with the ID number " + bookToRemove + " has been successfully removed.");
+                        library.viewBook();
                         break;
                     case 3:
                         System.out.println("This is the list of books available in this library.");
